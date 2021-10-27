@@ -21,8 +21,7 @@ export class FakeApi extends ExampleApi{
         return {data: productsShortInfo} as any as Promise<AxiosResponse<ProductShortInfo[]>>;
     }
     async getProductById(id: number) {
-        const product = this.products.filter(product => product.id === id);
-        return {data: product} as any as Promise<AxiosResponse<Product>>;     
+        return {data: this.products[id]} as any as Promise<AxiosResponse<Product>>;     
     }
     async checkout(form: CheckoutFormData, cart: CartState) {
         return  {
