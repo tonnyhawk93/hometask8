@@ -1,31 +1,74 @@
 import { it, expect, describe} from '@jest/globals';
 import { FakeApi, FakeCartApi } from './fakeApi/fakeApi';
-import event from '@testing-library/user-event';
 import React from 'react';
-import { render, screen, waitFor} from '@testing-library/react';
+import { render, screen, waitForElementToBeRemoved, waitFor} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { Catalog } from '../../../src/client/pages/Catalog';
 import { initStore } from '../../../src/client/store';
-import { Router } from 'react-router';
-import {createMemoryHistory} from 'history'
+import { BrowserRouter } from 'react-router-dom';
 
-const history = createMemoryHistory();
-
+const products = [
+    {
+        id: 0,
+        name: 'Tasty Pants',
+        description: 'Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals',
+        price: 302,
+        color: 'Purple',
+        material: 'Metal',
+    },
+    {
+        id: 1,
+        name: 'Tasty Towels',
+        description: "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+        price: 614,
+        color: 'Red',
+        material: 'Soft',
+    },
+    {
+        id: 2,
+        name: 'Handcrafted Computer',
+        description: 'The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients',
+        price: 131,
+        color: 'Ivory',
+        material: 'Rubber',
+    },
+    {
+        id: 3,
+        name: 'Licensed Shirt',
+        description: 'Carbonite web goalkeeper gloves are ergonomically designed to give easy fit',
+        price: 78,
+        color: 'Teal',
+        material: 'Frozen',
+    },
+    {
+        id: 4,
+        name: 'Handcrafted Mouse',
+        description: 'The Football Is Good For Training And Recreational Purposes',
+        price: 225,
+        color: 'Pink',
+        material: 'Steel',
+    },
+]
 describe('Каталог', () => {
-    it('В каталоге должны отображаться товары, список которых приходит с сервера', async (done) => {
-        const api = new FakeApi('test-basename');
-        const products = {};
-        const cartApi = new FakeCartApi(products);
+    it('В каталоге должны отображаться товары, список которых приходит с сервера', async () => {
+        const api = new FakeApi('test-basename', products);
+        const cartApi = new FakeCartApi({});
         const store = initStore(api, cartApi);
 
         const catalog = (
-            <Router history={history}>
+            <BrowserRouter>
                 <Provider store={store}>
                     <Catalog />
                 </Provider>
-            </Router>
+            </BrowserRouter>
         );
-        const { container, getByTestId } = render(catalog);           
+        const { getAllByTestId } = render(catalog);
+        await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
+        
+        for(let product of products) {
+            getAllByTestId(product.id)
+        }
+
     })
 })
 

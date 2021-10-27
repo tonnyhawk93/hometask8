@@ -1,5 +1,6 @@
 import { it, expect, describe } from '@jest/globals';
-import { FakeApi, FakeCartApi } from './fakeApi/fakeApi';
+import { FakeCartApi } from './fakeApi/fakeApi';
+import { ExampleApi} from '../../../src/client/api';
 import event from '@testing-library/user-event';
 import React from 'react';
 import { render, screen, within} from '@testing-library/react';
@@ -43,7 +44,7 @@ function countProductsInfo(products: CartState): ProductsInfo{
 
 describe('Корзина', () => {
     it('Для каждого товара должны отображаться название, цена, количество, стоимость, а также должна отображаться общая сумма заказа', () => {
-        const api = new FakeApi('test-basename');
+        const api = new ExampleApi('test-basename');
         const products: CartState = {
             0: {
                 name: 'test-item0',
@@ -84,7 +85,7 @@ describe('Корзина', () => {
 
     it('Если корзина пустая, должна отображаться ссылка на каталог товаров', () => {
         const basename = 'test-basename';
-        const api = new FakeApi('test-basename');
+        const api = new ExampleApi('test-basename');
         const products = {};
         const cartApi = new FakeCartApi(products);
         const store = initStore(api, cartApi);
@@ -101,7 +102,7 @@ describe('Корзина', () => {
     })
 
     it('В корзине должна быть кнопка "очистить корзину", по нажатию на которую все товары должны удаляться', () => {
-        const api = new FakeApi('test-basename');
+        const api = new ExampleApi('test-basename');
         const products: CartState = {
             0: {
                 name: 'test-item0',
@@ -127,7 +128,7 @@ describe('Корзина', () => {
     })
 
     it('В корзине должна отображаться таблица с добавленными в нее товарами', () => {
-        const api = new FakeApi('test-basename');
+        const api = new ExampleApi('test-basename');
         const products: CartState = {
             0: {
                 name: 'test-item0',
@@ -164,7 +165,7 @@ describe('Корзина', () => {
     })
 
     it('В шапке рядом со ссылкой на корзину должно отображаться количество не повторяющихся товаров в ней', () => {
-        const api = new FakeApi('test-basename');
+        const api = new ExampleApi('test-basename');
         const products: CartState = {
             0: {
                 name: 'test-item0',

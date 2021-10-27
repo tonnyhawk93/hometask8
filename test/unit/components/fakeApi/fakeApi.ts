@@ -1,62 +1,35 @@
-import { ExampleApi, CartApi } from '../../../../src/client/api';
 import { CartState, CheckoutFormData, CheckoutResponse, Product, ProductShortInfo } from '../../../../src/common/types';
-import mockAxios from 'jest-mock-axios';
+import { ExampleApi } from '../../../../src/client/api'
+import {AxiosResponse} from 'axios';
 
-const products = [
-    {
-        id: 0,
-        name: 'Tasty Pants',
-        description: 'Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals',
-        price: 302,
-        color: 'Purple',
-        material: 'Metal',
-    },
-    {
-        id: 1,
-        name: 'Tasty Towels',
-        description: "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
-        price: 614,
-        color: 'Red',
-        material: 'Soft',
-    },
-    {
-        id: 2,
-        name: 'Handcrafted Computer',
-        description: 'The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients',
-        price: 131,
-        color: 'Ivory',
-        material: 'Rubber',
-    },
-    {
-        id: 3,
-        name: 'Licensed Shirt',
-        description: 'Carbonite web goalkeeper gloves are ergonomically designed to give easy fit',
-        price: 78,
-        color: 'Teal',
-        material: 'Frozen',
-    },
-    {
-        id: 4,
-        name: 'Handcrafted Mouse',
-        description: 'The Football Is Good For Training And Recreational Purposes',
-        price: 225,
-        color: 'Pink',
-        material: 'Steel',
-    },
-]
+
+export interface FakeApi {
+    products : Product[]
+}
 export class FakeApi extends ExampleApi{
-    constructor(basename: string) {
+    constructor(basename : string, products : Product []) {
         super(basename);
+        this.products = products;
     }
-    
     async getProducts() {
-        const productsShortInfo = products.map(product =>  {product.id, product.name, product.price});
-        return mockAxios.mockResponse({data: productsShortInfo});
+        const productsShortInfo = this.products.map(product =>  { 
+            return {
+            id : product.id, 
+            name: product.name, 
+            price : product.price
+        }});     
+        return {data: productsShortInfo} as any as Promise<AxiosResponse<ProductShortInfo[]>>;
     }
-
     async getProductById(id: number) {
-        const product = products.filter(product => product.id === id);
-        return mockAxios.mockResponse({data: product});     
+        const product = this.products.filter(product => product.id === id);
+        return {data: product} as any as Promise<AxiosResponse<Product>>;     
+    }
+    async checkout(form: CheckoutFormData, cart: CartState) {
+        return  {
+			data: {
+				id: 1
+			}
+		} as any as Promise<AxiosResponse<CheckoutResponse>>;
     }
 }
 
@@ -66,9 +39,8 @@ export interface FakeCartApi {
 
 export const LOCAL_STORAGE_CART_KEY = 'example-store-cart';
 
-export class FakeCartApi extends CartApi {
+export class FakeCartApi{
     constructor(cartState : CartState) {
-        super();
         this.cartState = cartState;
     }
     getState() {
@@ -76,7 +48,7 @@ export class FakeCartApi extends CartApi {
     }
     setState(cartState: CartState) {
         this.cartState = cartState;
-        localStorage.setItem(LOCAL_STORAGE_CART_KEY, JSON.stringify(this.cartState));
+        //localStorage.setItem(LOCAL_STORAGE_CART_KEY, JSON.stringify(this.cartState));
     }
 }
 
