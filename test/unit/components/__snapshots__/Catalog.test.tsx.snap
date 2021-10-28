@@ -1,0 +1,350 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Каталог На ширине меньше 576px навигационное меню должно скрываться за "гамбургер" 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="Application"
+      >
+        <nav
+          class="navbar navbar-expand-sm navbar-light bg-light"
+        >
+          <div
+            class="container"
+          >
+            <a
+              class="Application-Brand navbar-brand"
+              href="/"
+            >
+              Example store
+            </a>
+            <button
+              aria-label="Toggle navigation"
+              class="Application-Toggler navbar-toggler"
+            >
+              <span
+                class="navbar-toggler-icon"
+              />
+            </button>
+            <div
+              class="Application-Menu collapse navbar-collapse"
+            >
+              <div
+                class="navbar-nav"
+              >
+                <a
+                  class="nav-link"
+                  href="/catalog"
+                >
+                  Catalog
+                </a>
+                <a
+                  class="nav-link"
+                  href="/delivery"
+                >
+                  Delivery
+                </a>
+                <a
+                  class="nav-link"
+                  href="/contacts"
+                >
+                  Contacts
+                </a>
+                <a
+                  class="nav-link"
+                  href="/cart"
+                >
+                  Cart
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div
+          class="container pt-4"
+        >
+          <div
+            class="Home"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col bg-secondary text-white py-4 bg-opacity-75"
+              >
+                <p
+                  class="display-3"
+                >
+                  Welcome to Example store!
+                </p>
+                <p
+                  class="lead"
+                >
+                  Culpa perspiciatis corporis facilis fugit similique
+                </p>
+                <p
+                  class="lead"
+                >
+                  Cum aut ut eveniet rem cupiditate natus veritatis quia
+                </p>
+              </div>
+            </div>
+            <div
+              class="row mb-4"
+            >
+              <div
+                class="col-12 col-md-4 bg-light py-3"
+              >
+                <h1>
+                  Quickly
+                </h1>
+                <p
+                  class="lead"
+                >
+                  Odio aut assumenda ipsam amet reprehenderit. Perspiciatis qui molestiae qui tempora quisquam
+                </p>
+              </div>
+              <div
+                class="col-12 col-md-4 bg-light py-3"
+              >
+                <h1>
+                  Qualitatively
+                </h1>
+                <p
+                  class="lead"
+                >
+                  Ut nisi distinctio est non voluptatem. Odio aut assumenda ipsam amet reprehenderit
+                </p>
+              </div>
+              <div
+                class="col-12 col-md-4 bg-light py-3"
+              >
+                <h1>
+                  Inexpensive
+                </h1>
+                <p
+                  class="lead"
+                >
+                  Perspiciatis qui molestiae qui tempora quisquam. Ut nisi distinctio est non voluptatem
+                </p>
+              </div>
+            </div>
+            <div
+              class="row mb-4"
+            >
+              <div
+                class="col-12py-3"
+              >
+                <p>
+                  Sed voluptatum quis voluptates laudantium incidunt laudantium. Illo non quos eos vel ipsa. Explicabo itaque est optio neque rerum provident enim qui sed. Corrupti commodi voluptatem vero soluta hic.
+                </p>
+                <p>
+                  Modi corporis consectetur aliquid sit cum tenetur enim. Sed voluptatum quis voluptates laudantium incidunt laudantium. Illo non quos eos vel ipsa. Explicabo itaque est optio neque rerum provident enim qui sed. Corrupti commodi voluptatem vero soluta hic.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="Application"
+    >
+      <nav
+        class="navbar navbar-expand-sm navbar-light bg-light"
+      >
+        <div
+          class="container"
+        >
+          <a
+            class="Application-Brand navbar-brand"
+            href="/"
+          >
+            Example store
+          </a>
+          <button
+            aria-label="Toggle navigation"
+            class="Application-Toggler navbar-toggler"
+          >
+            <span
+              class="navbar-toggler-icon"
+            />
+          </button>
+          <div
+            class="Application-Menu collapse navbar-collapse"
+          >
+            <div
+              class="navbar-nav"
+            >
+              <a
+                class="nav-link"
+                href="/catalog"
+              >
+                Catalog
+              </a>
+              <a
+                class="nav-link"
+                href="/delivery"
+              >
+                Delivery
+              </a>
+              <a
+                class="nav-link"
+                href="/contacts"
+              >
+                Contacts
+              </a>
+              <a
+                class="nav-link"
+                href="/cart"
+              >
+                Cart
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div
+        class="container pt-4"
+      >
+        <div
+          class="Home"
+        >
+          <div
+            class="row"
+          >
+            <div
+              class="col bg-secondary text-white py-4 bg-opacity-75"
+            >
+              <p
+                class="display-3"
+              >
+                Welcome to Example store!
+              </p>
+              <p
+                class="lead"
+              >
+                Culpa perspiciatis corporis facilis fugit similique
+              </p>
+              <p
+                class="lead"
+              >
+                Cum aut ut eveniet rem cupiditate natus veritatis quia
+              </p>
+            </div>
+          </div>
+          <div
+            class="row mb-4"
+          >
+            <div
+              class="col-12 col-md-4 bg-light py-3"
+            >
+              <h1>
+                Quickly
+              </h1>
+              <p
+                class="lead"
+              >
+                Odio aut assumenda ipsam amet reprehenderit. Perspiciatis qui molestiae qui tempora quisquam
+              </p>
+            </div>
+            <div
+              class="col-12 col-md-4 bg-light py-3"
+            >
+              <h1>
+                Qualitatively
+              </h1>
+              <p
+                class="lead"
+              >
+                Ut nisi distinctio est non voluptatem. Odio aut assumenda ipsam amet reprehenderit
+              </p>
+            </div>
+            <div
+              class="col-12 col-md-4 bg-light py-3"
+            >
+              <h1>
+                Inexpensive
+              </h1>
+              <p
+                class="lead"
+              >
+                Perspiciatis qui molestiae qui tempora quisquam. Ut nisi distinctio est non voluptatem
+              </p>
+            </div>
+          </div>
+          <div
+            class="row mb-4"
+          >
+            <div
+              class="col-12py-3"
+            >
+              <p>
+                Sed voluptatum quis voluptates laudantium incidunt laudantium. Illo non quos eos vel ipsa. Explicabo itaque est optio neque rerum provident enim qui sed. Corrupti commodi voluptatem vero soluta hic.
+              </p>
+              <p>
+                Modi corporis consectetur aliquid sit cum tenetur enim. Sed voluptatum quis voluptates laudantium incidunt laudantium. Illo non quos eos vel ipsa. Explicabo itaque est optio neque rerum provident enim qui sed. Corrupti commodi voluptatem vero soluta hic.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

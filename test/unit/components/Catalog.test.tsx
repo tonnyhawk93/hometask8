@@ -1,6 +1,6 @@
 import { it, expect, describe, jest} from '@jest/globals';
 import { FakeApi, FakeCartApi } from './fakeApi/fakeApi';
-import {  CartApi } from '../../../src/client/api';
+import { ExampleApi ,CartApi } from '../../../src/client/api';
 import React from 'react';
 import { render, screen, waitForElementToBeRemoved} from '@testing-library/react';
 import event from '@testing-library/user-event';
@@ -11,6 +11,7 @@ import { Cart } from '../../../src/client/pages/Cart';
 import { initStore } from '../../../src/client/store';
 import { BrowserRouter } from 'react-router-dom';
 import { Product as ProductType } from '../../../src/common/types';
+import {Application} from '../../../src/client/Application';
 
 describe('Каталог', () => {
     it('В каталоге должны отображаться товары, список которых приходит с сервера', async () => {
@@ -244,6 +245,26 @@ describe('Каталог', () => {
         getByText('Add to Cart').click()
         expect(localStorage.setItem).toBeCalled();
     })
+
+    it('На ширине меньше 576px навигационное меню должно скрываться за "гамбургер"', async function() {
+        const api = new ExampleApi('test-basename');
+        const cartApi = new CartApi();
+        const store = initStore(api, cartApi);
+        const productDetails = (
+            <BrowserRouter>
+                <Provider store={store}>
+                    <Application/>
+                </Provider>
+            </BrowserRouter>
+        );
+        Object.defineProperty(window, 'innerWidth', {
+            writable: true,
+            configurable: true,
+            value: 575,
+          })
+        const tree = render(productDetails);
+        expect(tree).toMatchSnapshot()
+    });
 })
 
 
