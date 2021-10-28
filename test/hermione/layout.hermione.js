@@ -1,5 +1,3 @@
-const HermioneConf = require("../../.hermione.conf");
-
 describe('Проверка вёрстки страниц', async function() {
     it('Проверка вёрстки главной страницы', async function() {
         const browser = this.browser;
@@ -39,16 +37,12 @@ describe('Проверка вёрстки страниц', async function() {
         });
     });
     
+
     it('На ширине меньше 576px навигационное меню должно скрываться за "гамбургер"', async function() {
-        HermioneConf.windowSize = {
-            width: 575,
-            height: 800
-        }
         const browser = this.browser;
         await browser.url('/hw/store');
         const page = await browser.$('.Application');
         await page.waitForExist();
-        browser.$('.Application-Menu');
         await browser.assertView('hamburger', '.Application', {
             allowViewportOverflow: true
         });
