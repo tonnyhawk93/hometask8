@@ -21,7 +21,8 @@ export class FakeApi extends ExampleApi{
         return {data: productsShortInfo} as any as Promise<AxiosResponse<ProductShortInfo[]>>;
     }
     async getProductById(id: number) {
-        return {data: this.products[id]} as any as Promise<AxiosResponse<Product>>;     
+        const [product] = this.products.filter(p => p.id === id);
+        return {data: product} as any as Promise<AxiosResponse<Product>>;     
     }
     async checkout(form: CheckoutFormData, cart: CartState) {
         return  {
@@ -43,11 +44,12 @@ export class FakeCartApi{
         this.cartState = cartState;
     }
     getState() {
+        const json = localStorage.getItem(LOCAL_STORAGE_CART_KEY);
         return this.cartState;
     }
     setState(cartState: CartState) {
         this.cartState = cartState;
-        //localStorage.setItem(LOCAL_STORAGE_CART_KEY, JSON.stringify(this.cartState));
+        localStorage.setItem(LOCAL_STORAGE_CART_KEY, JSON.stringify(this.cartState));
     }
 }
 

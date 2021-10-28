@@ -1,13 +1,16 @@
-import { it, expect, describe} from '@jest/globals';
+import { it, expect, describe, jest} from '@jest/globals';
 import { FakeApi, FakeCartApi } from './fakeApi/fakeApi';
+import {  CartApi } from '../../../src/client/api';
 import React from 'react';
-import { render, screen, waitForElementToBeRemoved, waitFor} from '@testing-library/react';
+import { render, screen, waitForElementToBeRemoved} from '@testing-library/react';
 import event from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { Catalog } from '../../../src/client/pages/Catalog';
 import { ProductDetails } from '../../../src/client/components/ProductDetails';
+import { Cart } from '../../../src/client/pages/Cart';
 import { initStore } from '../../../src/client/store';
 import { BrowserRouter } from 'react-router-dom';
+import { Product as ProductType } from '../../../src/common/types';
 
 describe('Каталог', () => {
     it('В каталоге должны отображаться товары, список которых приходит с сервера', async () => {
@@ -130,5 +133,119 @@ describe('Каталог', () => {
         expect(screen.getByText('Metal')).toBeTruthy();
         expect(screen.getByRole('button', { name: /add to cart/i })).toBeTruthy();
     })
+
+    it('Eсли товар уже добавлен в корзину, повторное нажатие кнопки "добавить в корзину" должно увеличивать его количество', async () => {
+        const products = [
+            {
+                id: 0,
+                name: 'Tasty Pants',
+                description: 'test-descr',
+                price: 302,
+                color: 'Purple',
+                material: 'Metal',
+            }
+        ]
+        const api = new FakeApi('test-basename', products);
+        const cartApi = new CartApi();
+        const store = initStore(api, cartApi);
+        function getProductFromCart(product : ProductType) {
+            const {cart} = store.getState()
+            return cart[product.id]
+        }
+        const productDetails = (
+            <BrowserRouter>
+                <Provider store={store}>
+                    <ProductDetails product = {products[0]}/>
+                </Provider>
+            </BrowserRouter>
+        );
+        const { getByText } = render(productDetails);
+        getByText('Add to Cart').click()
+        expect(getProductFromCart(products[0]).count).toEqual(1)
+        getByText('Item in cart')
+        getByText('Add to Cart').click()
+        expect(getProductFromCart(products[0]).count).toEqual(2)
+    })
+
+    it('Eсли товар уже добавлен в корзину, в каталоге и на странице товара должно отображаться сообщение об этом', async () => {
+        const products = [
+            {
+                id: 0,
+                name: 'Tasty Pants',
+                description: 'test-descr',
+                price: 302,
+                color: 'Purple',
+                material: 'Metal',
+            }
+        ]
+        const api = new FakeApi('test-basename', products);
+        const cartApi = new CartApi();
+        const store = initStore(api, cartApi);
+        const productDetails = (
+            <BrowserRouter>
+                <Provider store={store}>
+                    <ProductDetails product = {products[0]}/>
+                    <Catalog/>
+                </Provider>
+            </BrowserRouter>
+        );
+        const { getByText } = render(productDetails);
+        getByText('Add to Cart').click()
+        await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
+        expect(screen.queryAllByText('Item in cart').length).toEqual(2);
+    })
+
+    it('Cодержимое корзины должно сохраняться между перезагрузками страницы', async () => {
+        const products = [
+            {
+                id: 0,
+                name: 'Tasty Pants',
+                description: 'test-descr',
+                price: 302,
+                color: 'Purple',
+                material: 'Metal',
+            }
+        ]
+        const api = new FakeApi('test-basename', products);
+        const cartApi = new FakeCartApi({
+            0: {
+                name: 'Tasty Pants',
+                price: 302,
+                count: 1
+            }
+        });
+        const store = initStore(api, cartApi);
+        Object.defineProperty(window, 'localStorage', {
+            value: {
+                getItem: jest.fn(),
+                setItem: jest.fn(),
+                clear: jest.fn()
+            }
+        })
+
+        const cart = (
+            <BrowserRouter>
+                <Provider store={store}>
+                    <Cart/>
+                </Provider>
+            </BrowserRouter>
+        );
+        const {getAllByText} = render(cart);
+        expect(getAllByText('Tasty Pants')).toBeTruthy();
+
+        const productDetails = (
+            <BrowserRouter>
+                <Provider store={store}>
+                    <ProductDetails product = {products[0]}/>
+                </Provider>
+            </BrowserRouter>
+        );
+        const {getByText} = render(productDetails);
+        getByText('Add to Cart').click()
+        expect(localStorage.setItem).toBeCalled();
+    })
 })
 
+
+
+	
