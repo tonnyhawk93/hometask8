@@ -19,7 +19,7 @@ const history = createMemoryHistory({
 })
 
 describe('Роутинг', () => {
-    it('При клику на ссылку Catalog открывается страница Catalog', () => {
+    it('При клику на ссылки открываются страницы', () => {
         const application = (
             <Router history={history}>
                 <Provider store={store}>
@@ -27,45 +27,19 @@ describe('Роутинг', () => {
                 </Provider>
             </Router>
         );
-        const { getByRole } = render(application);
-        event.click(getByRole('link', { name: /catalog/i }));
+        render(application);
+        event.click(screen.getByRole('link', { name: /catalog/i }));
         expect(screen.getByRole('heading', { name: /catalog/i }).textContent).toEqual('Catalog');
-    })
-    it('При клику на ссылку Delivery открывается страница Delivery', () => {
-        const application = (
-            <Router history={history}>
-                <Provider store={store}>
-                    <Application />
-                </Provider>
-            </Router>
-        );
-        const { getByRole } = render(application);
-        event.click(getByRole('link', { name: /delivery/i }));
+        event.click(screen.getByRole('link', { name: /delivery/i }));
         expect(screen.getByRole('heading', { name: /delivery/i }).textContent).toEqual('Delivery');
-    })
-    it('При клику на ссылку Contacts открывается страница Contacts', () => {
-        const application = (
-            <Router history={history}>
-                <Provider store={store}>
-                    <Application />
-                </Provider>
-            </Router>
-        );
-        const { getByRole } = render(application);
-        event.click(getByRole('link', { name: /contacts/i }));
+        event.click(screen.getByRole('link', { name: /contacts/i }));
         expect(screen.getByRole('heading', { name: /contacts/i }).textContent).toEqual('Contacts');
-    })
-    it('При клику на ссылку Cart открывается страница Shopping cart', () => {
-        const application = (
-            <Router history={history}>
-                <Provider store={store}>
-                    <Application />
-                </Provider>
-            </Router>
-        );
-        const { getByRole } = render(application);
-        event.click(getByRole('link', { name: /cart/i }));
+        event.click(screen.getByRole('link', { name: /cart/i }));
         expect(screen.getByRole('heading', { name: /cart/i }).textContent).toEqual('Shopping cart');
+        event.click(screen.getByRole('link', { name: /example store/i }));
+        expect(screen.getByText(/welcome to example store!/i)).toBeTruthy();
     })
 })
+
+
 
