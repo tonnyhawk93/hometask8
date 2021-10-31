@@ -2,8 +2,10 @@
 
 LastTag=$(git tag | sort -V -r | awk 'NR==1')
 PreviousTag=$(git tag | sort -V -r | awk 'NR==2')
+Tags=$(git tag | sort -V -r)
 echo $LastTag 
 echo $PreviousTag
+echo $Tags
 Date=`git log -1 --format=%ai $CurrentGitTag`
 Author=`git show $CurrentGitTag --pretty=format:"%an %ae" --no-patch`
 ChangeLog=`git log --pretty=”%s” $PreviousGitTag..$CurrentGitTag`
