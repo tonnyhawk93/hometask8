@@ -1,0 +1,118 @@
+[33mcommit 0da083b30d1cd26d453b1b00c8d77d50e956ecd6[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;33mtag: a[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: tonnyhawk93 <tonnyhawk93@gmail.com>
+Date:   Mon Nov 1 00:21:38 2021 +0300
+
+    copy
+
+[1mdiff --git a/.github/scripts/tracker.sh b/.github/scripts/tracker.sh[m
+[1mindex 9a5ef50..3864eac 100755[m
+[1m--- a/.github/scripts/tracker.sh[m
+[1m+++ b/.github/scripts/tracker.sh[m
+[36m@@ -1,2 +1,87 @@[m
+ #! /usr/bin/env bash[m
+[31m-echo ${GITHUB_REF##*/}[m
+\ No newline at end of file[m
+[32m+[m
+[32m+[m[32mecho "Getting information from git..."[m
+[32m+[m[32mCurrentGitTag=$(git tag | sort -r | head -1)[m
+[32m+[m[32mPreviousGitTag=$(git tag | sort -r | head -2 | tail -1)[m
+[32m+[m
+[32m+[m[32mecho "Current tag: " $CurrentGitTag[m
+[32m+[m[32mecho "Previous tag: " $PreviousGitTag[m
+[32m+[m
+[32m+[m[32mReleaseDate=`git show $CurrentGitTag --pretty=format:"%as" --no-patch | tr -s "\n" " "`[m
+[32m+[m[32mReleaseAuthor=`git show $CurrentGitTag --pretty=format:"%an %ae" --no-patch | tr -s "\n" " "`[m
+[32m+[m[32mGitLog=`git log ${PreviousGitTag}..${CurrentGitTag} --pretty=format:"\n* %h (%cs) %s - %cn %ce;" | tr -s "\n" " "`[m
+[32m+[m
+[32m+[m
+[32m+[m[32mSummary="Release ${CurrentGitTag}"[m
+[32m+[m[32mecho "Title: $Summary"[m
+[32m+[m[32mDescription="Release Date: ${ReleaseDate}\nRelease Author: ${ReleaseAuthor}\nChangelog:\n${GitLog}"[m[41m [m
+[32m+[m[32mecho "Description: $Description"[m
+[32m+[m[32mUnique="trabemz_shri-infrastructure_${CurrentGitTag}"[m
+[32m+[m[32mecho "Unique identifier: $Unique"[m
+[32m+[m
+[32m+[m
+[32m+[m[32mecho "Creating task in tracker..."[m
+[32m+[m[32mDataRaw='{[m
+[32m+[m[32m        "queue": "TMP",[m
+[32m+[m[32m        "summary": "'"${Summary}"'",[m
+[32m+[m[32m        "description": "'"${Description}"'",[m
+[32m+[m[32m        "unique": "'"${Unique}"'"[m
+[32m+[m[32m    }'[m
+[32m+[m
+[32m+[m[32mresponseCodeCreate=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request POST 'https://api.tracker.yandex.net/v2/issues/' \[m
+[32m+[m[32m--header "Authorization: OAuth $OAuth" \[m
+[32m+[m[32m--header "X-Org-ID: $OrganizationId" \[m
+[32m+[m[32m--header "Content-Type: application/json" \[m
+[32m+[m[32m--data-raw "$DataRaw"[m
+[32m+[m[32m)[m
+[32m+[m[32mif [ "$responseCodeCreate" = 409 ][m
+[32m+[m[32mthen[m[41m [m
+[32m+[m[32m  echo 'The task was created in the tracker earlier.'[m
+[32m+[m[32m  echo 'Updating task in tracker...'[m
+[32m+[m
+[32m+[m[41m  [m
+[32m+[m[32m  IssueUrl=$(curl --silent --location --request POST 'https://api.tracker.yandex.net/v2/issues/_search' \[m
+[32m+[m[32m  --header "Authorization: OAuth $OAuth" \[m
+[32m+[m[32m  --header "X-Org-ID: $OrganizationId" \[m
+[32m+[m[32m  --header "Content-Type: application/json" \[m
+[32m+[m[32m  --data '{[m
+[32m+[m[32m    "filter": {[m
+[32m+[m[32m      "unique": "'"${Unique}"'"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  }' | awk -F '"self":"' '{ print $2 }' | awk -F '","' '{ print $1 }'[m
+[32m+[m[32m  )[m
+[32m+[m[32m  echo "Task Url: $IssueUrl"[m
+[32m+[m
+[32m+[m[32m  #Update task[m
+[32m+[m[32m  responseCodeUpdate=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request PATCH "$IssueUrl" \[m
+[32m+[m[32m  --header "Authorization: OAuth $OAuth" \[m
+[32m+[m[32m  --header "X-Org-ID: $OrganizationId" \[m
+[32m+[m[32m  --header "Content-Type: application/json" \[m
+[32m+[m[32m  --data-raw "$DataRaw"[m
+[32m+[m[32m  )[m
+[32m+[m[32m  if [ "$responseCodeUpdate" = 200 ][m
+[32m+[m[32m  then echo "Task updated successfully!"[m[41m [m
+[32m+[m[32m  else[m[41m [m
+[32m+[m[32m    echo "Update return code $responseCodeUpdate"[m
+[32m+[m[32m    responseUpdate=$(curl --silent  --location --request PATCH "$IssueUrl" \[m
+[32m+[m[32m    --header "Authorization: OAuth $OAuth" \[m
+[32m+[m[32m    --header "X-Org-ID: $OrganizationId" \[m
+[32m+[m[32m    --header "Content-Type: application/json" \[m
+[32m+[m[32m    --data-raw "$DataRaw"[m
+[32m+[m[32m    )[m
+[32m+[m[32m    echo responseUpdate[m
+[32m+[m[32m  fi[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  if [ "$responseCodeCreate" = 201 ][m
+[32m+[m[32m  then echo "Task created successfully!"[m[41m [m
+[32m+[m[32m  else[m[41m [m
+[32m+[m[32m    echo "Create return code $responseCodeCreate"[m
+[32m+[m[32m    responseCreate=$(curl --silent  --location --request POST 'https://api.tracker.yandex.net/v2/issues/' \[m
+[32m+[m[32m    --header "Authorization: OAuth $OAuth" \[m
+[32m+[m[32m    --header "X-Org-ID: $OrganizationId" \[m
+[32m+[m[32m    --header "Content-Type: application/json" \[m
+[32m+[m[32m    --data-raw "$DataRaw"[m
+[32m+[m[32m    )[m
+[32m+[m[32m    echo $responseCreate[m
+[32m+[m[32m  fi[m
+[32m+[m[32mfi[m
+\ No newline at end of file[m
+[1mdiff --git a/.github/workflows/main.yml b/.github/workflows/main.yml[m
+[1mindex 9926898..88de5a8 100644[m
+[1m--- a/.github/workflows/main.yml[m
+[1m+++ b/.github/workflows/main.yml[m
+[36m@@ -15,8 +15,11 @@[m [mjobs:[m
+             node-version: '14'[m
+         - name: Run npm i[m
+           run: ./.github/scripts/index.sh[m
+[31m-        - name: tag name[m
+[32m+[m[32m        - name: Create task in tracker[m
+           run: ./.github/scripts/tracker.sh[m
+[32m+[m[32m          env:[m
+[32m+[m[32m            OAuth: ${{ secrets.OAUTH_ID }}[m
+[32m+[m[32m            OrganizationId: ${{ secrets.ORGANIZATION_ID}}[m
+         [m
+ [m
+     [m
