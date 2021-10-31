@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-LastTag=$(ggit tag | sort -V -r | awk 'NR==1')
+LastTag=$(git tag | sort -V -r | awk 'NR==1')
 PreviousTag=$(git tag | sort -V -r | awk 'NR==2')
 echo $LastTag 
 echo $PreviousTag
