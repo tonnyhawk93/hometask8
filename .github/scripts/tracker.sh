@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-LastTag=$(git describe --tags)
-PreviousTag=$(git tag | sort -V -r | head -2 | tail -1)
+LastTag=$(ggit tag | sort -V -r | awk 'NR==1')
+PreviousTag=$(git tag | sort -V -r | awk 'NR==2')
 echo $LastTag 
 echo $PreviousTag
 Date=`git log -1 --format=%ai $CurrentGitTag`
