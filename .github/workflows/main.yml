@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run a one-line script
-        run: ./index.sh
+      - name: Run npm i
+        run: ./.github/scripts/index.sh
         
 
     

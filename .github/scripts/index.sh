@@ -1,5 +1,4 @@
 #! /usr/bin/env bash
-chmod +x ./index.sh
 npm ci
 # npm run build
 # jest
