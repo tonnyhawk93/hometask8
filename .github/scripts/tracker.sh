@@ -5,15 +5,14 @@ PreviousTag=$(git tag | sort -V -r | awk 'NR==2')
 Tags=$(git tag | sort -V -r)
 echo $LastTag 
 echo $PreviousTag
-echo $Tags
-Date=`git log -1 --format=%ai $CurrentGitTag`
-Author=`git show $CurrentGitTag --pretty=format:"%an %ae" --no-patch`
-ChangeLog=`git log --pretty=”%s” $PreviousGitTag..$CurrentGitTag`
+Date=`git log -1 --format=%ai ${LastTag}`
+Author=`git show ${LastTag} --pretty=format:"%an %ae" --no-patch`
+ChangeLog=`git log --pretty=”%s” ${PreviousTag}..${LastTag}`
 
 
-Summary="Release ${CurrentGitTag}"
+Summary="Release ${LastTag}"
 Description="Date: ${Date}\nAuthor: ${Author}\nChangelog:\n${ChangeLog}" 
-Unique="${Author}_${CurrentGitTag}_"
+Unique="${Author}_${LastTag}_"
 
 Data='{
         "queue": "TONNY",
