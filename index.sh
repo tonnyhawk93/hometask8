@@ -1,8 +1,10 @@
 #! /usr/bin/env bash
+chmod +x ./index.sh
 npm i
 npm run build
-selenium-standalone start & echo $! > ./selenium
-npm test
-pkill -F ./selenium
-rm ./selenium
+jest
+# selenium-standalone start & echo $! > ./selenium
+
+# pkill -F ./selenium
+# rm ./selenium
 echo "done"
