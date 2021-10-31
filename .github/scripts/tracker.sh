@@ -21,7 +21,7 @@ Data='{
         "unique": "'"${Unique}"'"
     }'
 
-responseCode=$(curl -s -w "%{http_code}" -X POST 'https://api.tracker.yandex.net/v2/issues/' \
+responseCode=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request POST 'https://api.tracker.yandex.net/v2/issues/' \
 --header "Authorization: OAuth $OAUTH_ID" \
 --header "X-Org-ID: $ORGANIZATION_ID" \
 --header "Content-Type: application/json" \
