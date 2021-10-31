@@ -15,7 +15,7 @@ Description="Date: ${Date}\nAuthor: ${Author}\nChangelog:\n${ChangeLog}"
 Unique="${Author}_${LastTag}_"
 
 Data='{
-        "queue": "TONNY",
+        "queue": "TMP",
         "summary": "'"${Summary}"'",
         "description": "'"${Description}"'",
         "unique": "'"${Unique}"'"
