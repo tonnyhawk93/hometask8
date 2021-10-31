@@ -1,7 +1,8 @@
 #! /usr/bin/env bash
 
 LastTag=$(git describe --tags)
-PreviousTag=$(git describe --abbrev=0 --match="v*" --tags HEAD~)
+PreviousTag=$(git describe --abbrev=0 --match="v*" --tags)
+echo `$LastTag - $PreviousTag`
 Date=`git log -1 --format=%ai $CurrentGitTag`
 Author=`git show $CurrentGitTag --pretty=format:"%an %ae" --no-patch`
 ChangeLog=`git log --pretty=”%s” $PreviousGitTag..$CurrentGitTag`
