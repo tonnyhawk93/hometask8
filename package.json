@@ -46,6 +46,7 @@
         "babel-jest": "^27.3.1",
         "css-loader": "^6.3.0",
         "hermione": "^4.6.4",
+        "html-reporter": "^7.5.0",
         "html-webpack-plugin": "^5.3.2",
         "jest": "^27.3.0",
         "jest-mock-axios": "^4.4.1",
