@@ -15,8 +15,11 @@ jobs:
             node-version: '14'
         - name: Run npm i
           run: ./.github/scripts/index.sh
-        - name: tag name
+        - name: Create task in tracker
           run: ./.github/scripts/tracker.sh
+          env:
+            OAuth: ${{ secrets.OAUTH_ID }}
+            OrganizationId: ${{ secrets.ORGANIZATION_ID}}
         
 
     
