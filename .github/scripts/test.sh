@@ -9,3 +9,5 @@ then
 else
     result="Tests passed successfully"
 fi
+
+echo $result

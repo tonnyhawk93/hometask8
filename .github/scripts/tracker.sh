@@ -10,7 +10,10 @@ Summary="Release ${LastTag}"
 Description="Date: ${Date}\nAuthor: ${Author}\nChangelog:\n${ChangeLog}" 
 Unique="tonnyhawk93/hometask8/${LastTag}"
 Data='{
-        "queue": "TMP",
+        "queue": {
+            "key" : "TMP",
+            "id" : "'"${Unique}"'"
+        }
         "summary": "'"${Summary}"'",
         "description": "'"${Description}"'",
         "unique": "'"${Unique}"'"
