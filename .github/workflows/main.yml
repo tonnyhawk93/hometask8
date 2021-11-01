@@ -24,6 +24,7 @@ jobs:
           run: ./.github/scripts/index.sh
         - name: Run tests
           run: ./.github/scripts/test.sh
+        - uses: docker-practice/actions-setup-docker@master
         - name: Build docker image
           run: ./.github/scripts/docker.sh
         

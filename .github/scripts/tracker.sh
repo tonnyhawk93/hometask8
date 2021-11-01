@@ -9,11 +9,9 @@ ChangeLog=`git log --pretty=”%s” ${PreviousTag}..${LastTag}`
 Summary="Release ${LastTag}"
 Description="Date: ${Date}\nAuthor: ${Author}\nChangelog:\n${ChangeLog}" 
 Unique="tonnyhawk93/hometask8/${LastTag}"
+
 Data='{
-        "queue": {
-            "key" : "TMP",
-            "id" : "'"${Unique}"'"
-        }
+        "queue": "TMP",
         "summary": "'"${Summary}"'",
         "description": "'"${Description}"'",
         "unique": "'"${Unique}"'"
