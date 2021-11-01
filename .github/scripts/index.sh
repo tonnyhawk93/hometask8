@@ -1,9 +1,12 @@
 #! /usr/bin/env bash
+
 npm i
 npm run build
-npx jest
-# selenium-standalone start & echo $! > ./selenium
 
-# pkill -F ./selenium
-# rm ./selenium
-echo "done"
+if [ $? -ne 0 ]
+then
+    result="ERROR app build!!"
+    exit 1
+else
+    result="App build successfully"
+fi
