@@ -12,7 +12,7 @@ ChangeLog=`git log --pretty=”%s” ${PreviousTag}..${LastTag}`
 
 Summary="Release ${LastTag}"
 Description="Date: ${Date}\nAuthor: ${Author}\nChangelog:\n${ChangeLog}" 
-Unique="${Author}_${LastTag}_"
+Unique="tonnyhawk93/hometask8/${LastTag}"
 
 Data='{
         "queue": "TMP",
@@ -32,4 +32,7 @@ if [ "$responseCode" = 200 ]
   then echo "OK!" 
   else echo "Error!" 
   fi
-
+if [ "$responseCode" = 201 ]
+  then echo "OK!" 
+  else echo "Error!" 
+  fi
