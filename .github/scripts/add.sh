@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 
 LastTag=$(git tag | sort -V -r | awk 'NR==1')
+${{ steps.taskId.outputs.upload_url }}
 Unique="tonnyhawk93/hometask8/${LastTag}"
 
 Data='{

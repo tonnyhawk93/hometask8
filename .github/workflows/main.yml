@@ -13,6 +13,7 @@ jobs:
           with:
             fetch-depth: 0
         - name: Create task in tracker
+          id: taskId
           run: ./.github/scripts/tracker.sh
           env:
             OAuth: ${{ secrets.OAUTH_ID }}

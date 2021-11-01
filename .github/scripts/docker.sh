@@ -4,7 +4,7 @@ LastTag=$(git tag | sort -V -r | awk 'NR==1')
 
 image="image-$LastTag"
 
-docker build . -f Dockerfile -t ${image}
+npx docker build . -f Dockerfile -t ${image}
 
 if [ $? -ne 0 ]
 then
