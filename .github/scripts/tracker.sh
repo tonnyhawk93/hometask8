@@ -22,8 +22,8 @@ responseID=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --reque
 --header "X-Org-ID: $OrganizationId" \
 --header "Content-Type: application/json" \
 --data-raw "$Data"
-| jq -r '.id')
-
+)
+#| jq -r '.id'
 if [ $responseID ]
   then echo "OK!" 
   echo $responseID
