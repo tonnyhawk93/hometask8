@@ -17,15 +17,14 @@ Data='{
         "unique": "'"${Unique}"'"
     }'
 
-response=$(curl --silent -s -w '%{json}' 'https://api.tracker.yandex.net/v2/issues/' \
+responseId=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
 --header "Authorization: OAuth $OAuth" \
 --header "X-Org-ID: $OrganizationId" \
 --header "Content-Type: application/json" \
---data-raw "$Data"
-)
+--data-raw "$Data" \
+| jq -r '.id')
 
-echo $response
-responseId=$($response | jq -r '.id')
+echo $responseId
 
 if [ -n "$responseId"]
   then echo "OK!" 
