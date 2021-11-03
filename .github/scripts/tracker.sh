@@ -25,9 +25,10 @@ response=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
 )
 
 echo $response
-responseId = $($response | jq -r '.id')
+responseId = $('$response' | jq -r '.id')
 echo $responseId
 if [ -n "$responseId"]
   then echo "OK!" 
   else echo "Error!" 
   fi
+
