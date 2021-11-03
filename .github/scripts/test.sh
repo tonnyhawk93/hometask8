@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 
+echo $ticketId
 npx jest
 
 if [ $? -ne 0 ]

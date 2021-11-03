@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
-echo ${ env.OAuth }
-echo ${ env.OrganizationId }
+echo ${env.OAuth}
+echo ${env.OrganizationId}
 LastTag=$(git tag | sort -V -r | awk 'NR==1')
 PreviousTag=$(git tag | sort -V -r | awk 'NR==2')
 Tags=$(git tag | sort -V -r)
@@ -19,15 +19,15 @@ Data='{
     }'
 
 responseId=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
---header "Authorization: OAuth ${ env.OAuth }" \
---header "X-Org-ID: ${ env.OrganizationId }" \
+--header "Authorization: OAuth ${env.OAuth}" \
+--header "X-Org-ID: ${env.OrganizationId}" \
 --header "Content-Type: application/json" \
 --data-raw "$Data" \
 | jq -r '.id')
 
-echo $responseId
+echo ::set-env name=TicketId::$responseId
 
-if [ -n "$responseId"]
+if [ -n $responseId]
   then echo "OK!" 
   echo $responseId
   else echo "Error!" 

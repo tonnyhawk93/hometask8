@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-
+echo $ticketId
 npm i
 npm run build
 
