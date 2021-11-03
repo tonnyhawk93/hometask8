@@ -1,20 +1,14 @@
 #! /usr/bin/env bash
-
+Text = $1
 LastTag=$(git tag | sort -V -r | awk 'NR==1')
 ${{ steps.taskId.outputs.upload_url }}
 Unique="tonnyhawk93/hometask8/${LastTag}"
 
-Data='{
-        "queue": {
-            "key" : "TMP",
-            "id" : "'"${Unique}"'"
-        }
-        "summary": "'"${Summary}"'",
-        "description": "'"${Description}"'",
-        "unique": "'"${Unique}"'"
+Data'{
+        "text": '${Text}'
     }'
-
-responseCode=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request PATCH 'https://api.tracker.yandex.net/v2/issues/${Unique}' \
+    
+responseCode=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request PATCH 'https://api.tracker.yandex.net/v2/issues/'${Unique}'/comments' \
 --header "Authorization: OAuth $OAuth" \
 --header "X-Org-ID: $OrganizationId" \
 --header "Content-Type: application/json" \
