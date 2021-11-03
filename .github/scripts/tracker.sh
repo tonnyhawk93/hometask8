@@ -17,7 +17,7 @@ Data='{
         "unique": "'"${Unique}"'"
     }'
 
-response=$(curl --silent -s -w "%{json}" 'https://api.tracker.yandex.net/v2/issues/' \
+response=$(curl --silent -s -w '%{json}' 'https://api.tracker.yandex.net/v2/issues/' \
 --header "Authorization: OAuth $OAuth" \
 --header "X-Org-ID: $OrganizationId" \
 --header "Content-Type: application/json" \
