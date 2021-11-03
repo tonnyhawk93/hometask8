@@ -1,6 +1,4 @@
 #! /usr/bin/env bash
-echo ${env.OAuth}
-echo ${env.OrganizationId}
 LastTag=$(git tag | sort -V -r | awk 'NR==1')
 PreviousTag=$(git tag | sort -V -r | awk 'NR==2')
 Tags=$(git tag | sort -V -r)
@@ -19,14 +17,14 @@ Data='{
     }'
 
 responseId=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
---header "Authorization: OAuth ${env.OAuth}" \
---header "X-Org-ID: ${env.OrganizationId}" \
+--header "Authorization: OAuth $OAuth" \
+--header "X-Org-ID: $OrganizationId" \
 --header "Content-Type: application/json" \
 --data-raw "$Data" \
 | jq -r '.id')
 
-echo ::set-env name=ticketId::$responseId
-
+echo "{ticketId}={$responseId}" >> $GITHUB_ENV
+echo $responseId
 if [ -n $responseId]
   then echo "OK!" 
   echo $responseId
