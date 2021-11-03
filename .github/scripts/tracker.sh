@@ -25,7 +25,7 @@ responseId=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
 --data-raw "$Data" \
 | jq -r '.id')
 
-echo ::set-env name=TicketId::$responseId
+echo ::set-env name=ticketId::$responseId
 
 if [ -n $responseId]
   then echo "OK!" 
