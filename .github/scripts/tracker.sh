@@ -17,7 +17,7 @@ Data='{
         "unique": "'"${Unique}"'"
     }'
 
-response=$(curl --silent -s  -o /temp.json 'https://api.tracker.yandex.net/v2/issues/' \
+response=$(curl --silent -s -w "%{json}" 'https://api.tracker.yandex.net/v2/issues/' \
 --header "Authorization: OAuth $OAuth" \
 --header "X-Org-ID: $OrganizationId" \
 --header "Content-Type: application/json" \
@@ -25,7 +25,7 @@ response=$(curl --silent -s  -o /temp.json 'https://api.tracker.yandex.net/v2/is
 )
 
 echo $response
-responseId=$(echo cat /temp.json | jq -r '.id')
+responseId=$($response | jq -r '.id')
 
 if [ -n "$responseId"]
   then echo "OK!" 
