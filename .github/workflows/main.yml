@@ -23,6 +23,10 @@ jobs:
           node-version: '14'
       - name: Build app
         run: ./.github/scripts/index.sh
+        env:
+          OAuth: ${{ secrets.OAUTH_ID }}
+          OrganizationId: ${{ secrets.ORGANIZATION_ID}}
+          ticketID: $ticketId
       - name: Run tests
         run: ./.github/scripts/test.sh
         env:
@@ -33,6 +37,8 @@ jobs:
       - name: Build docker image
         run: ./.github/scripts/docker.sh
         env:
+          OAuth: ${{ secrets.OAUTH_ID }}
+          OrganizationId: ${{ secrets.ORGANIZATION_ID}}
           ticketID: $ticketId
         
         
