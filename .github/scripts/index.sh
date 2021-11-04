@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 echo $ticketId
-# npm i
-# npm run build
+npm i
+npm run build
 
 if [ $? -ne 0 ]
 then
