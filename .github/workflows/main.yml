@@ -30,11 +30,12 @@ jobs:
         env:
           OAuth: ${{ secrets.OAUTH_ID }}
           OrganizationId: ${{ secrets.ORGANIZATION_ID}}
+          ticketID: ${{ $GITHUB_ENV.ticketID }}
       - uses: docker-practice/actions-setup-docker@master
       - name: Build docker image
         run: ./.github/scripts/docker.sh
         env:
-          ticketID: ${{ env.ticketID }}
+          ticketID: $.ticketID
         
         
 
