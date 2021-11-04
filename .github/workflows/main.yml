@@ -24,7 +24,7 @@ jobs:
       - name: Build app
         run: ./.github/scripts/index.sh
         env:
-          ticketID: ${ticketID}
+          ticketID: ${env.ticketID}
       - name: Run tests
         run: ./.github/scripts/test.sh
         env:
@@ -34,7 +34,7 @@ jobs:
       - name: Build docker image
         run: ./.github/scripts/docker.sh
         env:
-          ticketID: ${{ticketID}}
+          ticketID: ${{env.ticketID}}
         
         
 
