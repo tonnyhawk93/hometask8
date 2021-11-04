@@ -13,7 +13,7 @@ responseCode=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --req
 --header "Content-Type: application/json" \
 --data-raw "$Data"
 )
-
+echo 'https://api.tracker.yandex.net/v2/issues/'${Id}'/comments'
 if [ "$responseCode" = 201 ]
 then echo "Comment created successfully!"
 else echo "Error!!! Comment not created."
