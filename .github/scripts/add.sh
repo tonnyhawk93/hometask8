@@ -3,7 +3,7 @@ Text=$1
 Id=$2
 OAuth=$3
 OrganizationId=$4
-Data'{
+Data='{
         "text": '${Text}'
     }'
     
