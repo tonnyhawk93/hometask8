@@ -26,20 +26,17 @@ jobs:
         env:
           OAuth: ${{ secrets.OAUTH_ID }}
           OrganizationId: ${{ secrets.ORGANIZATION_ID}}
-          ticketID: $ticketId
       - name: Run tests
         run: ./.github/scripts/test.sh
         env:
           OAuth: ${{ secrets.OAUTH_ID }}
           OrganizationId: ${{ secrets.ORGANIZATION_ID}}
-          ticketID: $ticketId
       - uses: docker-practice/actions-setup-docker@master
       - name: Build docker image
         run: ./.github/scripts/docker.sh
         env:
           OAuth: ${{ secrets.OAUTH_ID }}
           OrganizationId: ${{ secrets.ORGANIZATION_ID}}
-          ticketID: $ticketId
         
         
 

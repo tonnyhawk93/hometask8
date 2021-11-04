@@ -24,7 +24,6 @@ responseId=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
 | jq -r '.id')
 
 echo "ticketId=$responseId" >> $GITHUB_ENV
-echo $responseId
 
 if [[ ! -z $responseId ]]
   then echo "OK!" 
