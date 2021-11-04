@@ -6,6 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
+  env:
+    ticketID: "1"
   release:
       runs-on: ubuntu-latest
       steps:
