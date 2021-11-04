@@ -24,17 +24,18 @@ jobs:
       - name: Build app
         run: ./.github/scripts/index.sh
         env:
-          ticketID: ${env.ticketID}
+          ticketID: {{ steps.taskId.outputs.ticketId }}
       - name: Run tests
         run: ./.github/scripts/test.sh
         env:
           OAuth: ${{ secrets.OAUTH_ID }}
           OrganizationId: ${{ secrets.ORGANIZATION_ID}}
+          ticketID: {{ steps.taskId.outputs.ticketId }}
       - uses: docker-practice/actions-setup-docker@master
       - name: Build docker image
         run: ./.github/scripts/docker.sh
         env:
-          ticketID: ${{env.ticketID}}
+          ticketID: {{ steps.taskId.outputs.ticketId }}
         
         
 
