@@ -14,4 +14,5 @@ else
     result="Created docker image: ${image}"
 fi
 
-echo $result
+chmod +x ./.github/scripts/add.sh
+./.github/scripts/add.sh "$result" "$ticketId" "$OAuth" "$OrganizationId"

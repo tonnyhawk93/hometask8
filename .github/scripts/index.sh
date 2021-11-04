@@ -10,3 +10,6 @@ then
 else
     result="App build successfully"
 fi
+
+chmod +x ./.github/scripts/add.sh
+./.github/scripts/add.sh "$result" "$ticketId" "$OAuth" "$OrganizationId"
