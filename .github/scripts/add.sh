@@ -1,7 +1,8 @@
 #! /usr/bin/env bash
 Text=$1
 Id=$2
-
+OAuth=$3
+OrganizationId=$4
 Data'{
         "text": '${Text}'
     }'

@@ -12,4 +12,4 @@ else
 fi
 
 chmod +x ./.github/scripts/add.sh
-./.github/scripts/add.sh $result $ticketId
+./.github/scripts/add.sh $result $ticketId $OAuth $OrganizationId
