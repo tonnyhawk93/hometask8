@@ -7,7 +7,8 @@ OrganizationId=$4
 responseCode=$(curl --silent -s -w "%{http_code}" "https://api.tracker.yandex.net/v2/issues/$Id/comments" \
 --header "Authorization: OAuth $OAuth" \
 --header "X-Org-ID: $OrganizationId" \
---data-raw {"text": $Text}
+--header "Content-Type: application/json" \
+--data-raw '{"text": "test"}'
 )
 echo $responseCode
 if [ "$responseCode" = 201 ]
