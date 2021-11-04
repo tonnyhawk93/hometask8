@@ -28,7 +28,6 @@ jobs:
       - name: Run tests
         run: ./.github/scripts/test.sh
         env:
-          ticketID: ${{ env.ticketID }}
           OAuth: ${{ secrets.OAUTH_ID }}
           OrganizationId: ${{ secrets.ORGANIZATION_ID}}
       - uses: docker-practice/actions-setup-docker@master

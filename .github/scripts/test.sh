@@ -1,7 +1,8 @@
 #! /usr/bin/env bash
 
 echo $ticketId
-echo $bla
+echo ${ticketId}
+cho ${{ticketId}}
 npx jest
 
 if [ $? -ne 0 ]

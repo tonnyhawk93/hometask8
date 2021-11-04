@@ -7,13 +7,16 @@ Data='{
         "text": '${Text}'
     }'
     
-responseCode=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request PATCH 'https://api.tracker.yandex.net/v2/issues/'${Id}'/comments' \
+responseCode=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request PATCH 'https://api.tracker.yandex.net/v2/issues/'$Id'/comments' \
 --header "Authorization: OAuth $OAuth" \
 --header "X-Org-ID: $OrganizationId" \
 --header "Content-Type: application/json" \
 --data-raw "$Data"
 )
-echo 'https://api.tracker.yandex.net/v2/issues/'${Id}'/comments'
+echo $Text
+echo 'https://api.tracker.yandex.net/v2/issues/'$Id'/comments'
+echo $OAuth
+echo $OrganizationId
 if [ "$responseCode" = 201 ]
 then echo "Comment created successfully!"
 else echo "Error!!! Comment not created."
