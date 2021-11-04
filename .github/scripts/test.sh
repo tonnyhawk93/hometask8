@@ -2,7 +2,7 @@
 
 echo $ticketId
 echo ${ticketId}
-cho ${{ticketId}}
+echo ${{ticketId}}
 npx jest
 
 if [ $? -ne 0 ]
