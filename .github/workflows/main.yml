@@ -8,8 +8,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    env:
-      ticketID: "1"
     steps:
       - uses: actions/checkout@v2
         with:

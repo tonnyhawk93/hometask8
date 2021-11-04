@@ -1,16 +1,19 @@
 #! /usr/bin/env bash
-Text = $1
-LastTag=$(git tag | sort -V -r | awk 'NR==1')
-${{ steps.taskId.outputs.upload_url }}
-Unique="tonnyhawk93/hometask8/${LastTag}"
+Text=$1
+Id=$2
 
 Data'{
         "text": '${Text}'
     }'
     
-responseCode=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request PATCH 'https://api.tracker.yandex.net/v2/issues/'${Unique}'/comments' \
+responseCode=$(curl --silent  -o /dev/null -s -w "%{http_code}" --location --request PATCH 'https://api.tracker.yandex.net/v2/issues/'${Id}'/comments' \
 --header "Authorization: OAuth $OAuth" \
 --header "X-Org-ID: $OrganizationId" \
 --header "Content-Type: application/json" \
 --data-raw "$Data"
 )
+
+if [ "$responseCode" = 201 ]
+then echo "Comment created successfully!"
+else echo "Error!!! Comment not created."
+fi
