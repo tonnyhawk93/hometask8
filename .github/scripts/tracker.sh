@@ -23,7 +23,7 @@ responseId=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
 --data-raw "$Data" \
 | jq -r '.id')
 
-echo "::set-output name=ticketId::$responseId"
+echo "ticketId=$responseId" >> $GITHUB_ENV
 echo $responseId
 
 if [[ ! -z $responseId ]]
