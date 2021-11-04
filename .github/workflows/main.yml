@@ -6,36 +6,36 @@ on:
   workflow_dispatch:
 
 jobs:
-  env:
-    ticketID: "1"
   release:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
-        - name: Create task in tracker
-          id: taskId
-          run: ./.github/scripts/tracker.sh
-          env:
-            OAuth: ${{ secrets.OAUTH_ID }}
-            OrganizationId: ${{ secrets.ORGANIZATION_ID}}
-        - uses: actions/setup-node@v2
-          with:
-            node-version: '14'
-        - name: Build app
-          run: ./.github/scripts/index.sh
-          env:
-            ticketID: ${{ env.ticketID }}
-        - name: Run tests
-          run: ./.github/scripts/test.sh
-          env:
-            ticketID: ${{ env.ticketID }}
-        - uses: docker-practice/actions-setup-docker@master
-        - name: Build docker image
-          run: ./.github/scripts/docker.sh
-          env:
-            ticketID: ${{ env.ticketID }}
+    runs-on: ubuntu-latest
+    env:
+      ticketID: "1"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Create task in tracker
+        id: taskId
+        run: ./.github/scripts/tracker.sh
+        env:
+          OAuth: ${{ secrets.OAUTH_ID }}
+          OrganizationId: ${{ secrets.ORGANIZATION_ID}}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Build app
+        run: ./.github/scripts/index.sh
+        env:
+          ticketID: ${{ env.ticketID }}
+      - name: Run tests
+        run: ./.github/scripts/test.sh
+        env:
+          ticketID: ${{ env.ticketID }}
+      - uses: docker-practice/actions-setup-docker@master
+      - name: Build docker image
+        run: ./.github/scripts/docker.sh
+        env:
+          ticketID: ${{ env.ticketID }}
         
         
 
