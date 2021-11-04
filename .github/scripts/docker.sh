@@ -11,7 +11,7 @@ then
     result="!!ERROR with create docker image!!"
     exit 1
 else
-    result="Created docker image: ${image}"
+    result="Create docker image: ${image}"
 fi
 
 chmod +x ./.github/scripts/add.sh
