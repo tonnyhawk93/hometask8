@@ -1,0 +1,1 @@
+echo '[{"self":"https://api.tracker.yandex.net/v2/issues/TMP-1305","id":"6186a926ac3a95292581e081"}]'
