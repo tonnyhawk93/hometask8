@@ -4,15 +4,15 @@ Id=$2
 OAuth=$3
 OrganizationId=$4
     
-responseId=$(curl --silent -s "https://api.tracker.yandex.net/v2/issues/$Id/comments" \
---header "Authorization: OAuth $OAuth" \
---header "X-Org-ID: $OrganizationId" \
---header "Content-Type: application/json" \
---data-raw '{"text": "'"$Text"'"}' \
+responseId=$(curl -s "https://api.tracker.yandex.net/v2/issues/$Id/comments" \
+-H "Authorization: OAuth $OAuth" \
+-H "X-Org-ID: $OrganizationId" \
+-H "Content-Type: application/json" \
+-d'{"text": "'"$Text"'"}' \
 | jq -r '.id'
 )
 
-if [[ ! -z $responseId ]]
+if [[ -n "$responseId" ]]
 then 
     echo "Добавлен коментарий в тикет"
     exit 0

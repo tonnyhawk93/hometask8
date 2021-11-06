@@ -24,6 +24,7 @@ then
     exit 1
 else
     result="Приложение собрано успешно"
+    echo $result
     chmod +x ./.github/scripts/add.sh
     ./.github/scripts/add.sh "$result" "$ticketId" "$OAuth" "$OrganizationId"
     exit 0

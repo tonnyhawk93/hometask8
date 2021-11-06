@@ -16,20 +16,41 @@ Data='{
         "unique": "'"${Unique}"'"
     }'
 
-responseId=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
---header "Authorization: OAuth $OAuth" \
---header "X-Org-ID: $OrganizationId" \
---header "Content-Type: application/json" \
---data-raw "$Data" \
+responseId=$(curl -s 'https://api.tracker.yandex.net/v2/issues/' \
+-H "Authorization: OAuth $OAuth" \
+-H "X-Org-ID: $OrganizationId" \
+-H "Content-Type: application/json" \
+-d "$Data" \
 | jq -r '.id')
 
-echo "ticketId=$responseId" >> $GITHUB_ENV
 
-if [[ ! -z $responseId ]]
+if [[ -n "$responseId" ]]
   then 
+    echo "ticketId=$responseId" >> $GITHUB_ENV
     echo "В трекере создан релизный тикет с ID = $responseId" 
     exit 0
   else 
-    echo "Ошиба создания тикета в трекере" 
-    exit 1
+    responseId=$(curl -s "https://api.tracker.yandex.net/v2/issues/_search" \
+    -H "Authorization: OAuth $OAuth" \
+    -H "X-Org-ID: $OrganizationId" \
+    -H "Content-Type: application/json" \
+    -d '{"filter": {"unique": "'"${Unique}"'"}}' \
+    | jq -r '.id'
+    )
+    if [[ -n "$responseId" ]]
+      then 
+        echo "ticketId=$responseId" >> $GITHUB_ENV
+        responseId=$(curl -s -X PATCH "https://api.tracker.yandex.net/v2/issues/$Id" \
+          -H "Authorization: OAuth $OAuth" \
+          -H "X-Org-ID: $OrganizationId" \
+          -H "Content-Type: application/json" \
+          -d '{"text": "'"$Text"'"}' \
+          | jq -r '.id'
+          )
+        echo "В трекере обновлена тикет с ID = $responseId" 
+        exit 0
+      else 
+        echo "Ошиба создания тикета в трекере" 
+        exit 1
+      fi
   fi
