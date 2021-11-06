@@ -24,7 +24,7 @@ responseId=$(curl -s 'https://api.tracker.yandex.net/v2/issues/' \
 | jq -r '.id')
 
 
-if [[ "$responseId"!="null" ]]
+if [[ $responseId!="null" ]]
   then 
     echo "ticketId=$responseId" >> $GITHUB_ENV
     echo "В трекере создан релизный тикет с ID = $responseId" 
@@ -37,7 +37,7 @@ if [[ "$responseId"!="null" ]]
     -d '{"filter": {"unique": "'"${Unique}"'"}}' \
     | jq -r '.id'
     )
-    if [[ "$responseId"!="null" ]]
+    if [[ $responseId!="null" ]]
       then 
         echo "ticketId=$responseId" >> $GITHUB_ENV
         responseId=$(curl -s -X PATCH "https://api.tracker.yandex.net/v2/issues/$Id" \
