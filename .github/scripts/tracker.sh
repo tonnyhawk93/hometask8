@@ -24,7 +24,7 @@ responseId=$(curl -s 'https://api.tracker.yandex.net/v2/issues/' \
 | jq -r '.id')
 
 
-if [[ "$responseId" -ne "null" ]]
+if [[ "$responseId" != "null" ]]
   then 
     echo "ticketId=$responseId" >> $GITHUB_ENV
     echo "В трекере создан релизный тикет с ID = $responseId" 
@@ -37,7 +37,7 @@ if [[ "$responseId" -ne "null" ]]
     -d '{"filter": {"unique": "'"${Unique}"'"}}' \
     | jq -r '.id'
     )
-    if [[ "$responseId" -ne "null" ]]
+    if [[ "$responseId" != "null" ]]
       then 
         echo "ticketId=$responseId" >> $GITHUB_ENV
         responseId=$(curl -s -X PATCH "https://api.tracker.yandex.net/v2/issues/$Id" \
@@ -47,17 +47,16 @@ if [[ "$responseId" -ne "null" ]]
           -d "$Data" \
           | jq -r '.id'
           )
-        echo "В трекере обновлен тикет с ID = $responseId" 
+        if [[ "$responseId" != "null" ]]
+          then 
+            echo "В трекере обновлен тикет с ID = $responseId"   
+          else 
+            echo "Ошиба создания тикета в трекере" 
+            exit 1
+        fi
       else 
         echo "Ошиба создания тикета в трекере" 
         exit 1
     fi
 fi
 
-# if [[ "$responseId" -ne "null" ]]
-#           then 
-            
-#           else 
-#             echo "Ошиба создания тикета в трекере" 
-#             exit 1
-#         fi
