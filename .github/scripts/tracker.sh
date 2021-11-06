@@ -54,16 +54,8 @@ if [[ "$response" == "[]" ]]
           -H "Authorization: OAuth $OAuth" \
           -H "X-Org-ID: $OrganizationId" \
           -H "Content-Type: application/json" \
-          -d "$Data" \
-          | jq -r '.id'
-          )
-        if [[ "$responseId" != "null" ]]
-          then 
-            echo "В трекере обновлен тикет с ID = $responseId"   
-          else 
-            echo "Ошибка создания тикета в трекере" 
-            exit 1
-        fi
+          -d "$Data")
+        echo "В трекере обновлен тикет с ID = $responseId"
       else 
         echo "Ошибка создания тикета в трекере" 
         exit 1
