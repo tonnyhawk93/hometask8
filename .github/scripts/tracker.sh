@@ -25,7 +25,7 @@ response=$(curl -s "https://api.tracker.yandex.net/v2/issues/_search" \
     )
 
 echo $response
-if [[ "$response" -ne 201 ]]
+if [[ "$response" == "[]" ]]
   then 
     responseId=$(curl -s 'https://api.tracker.yandex.net/v2/issues/' \
     -H "Authorization: OAuth $OAuth" \
