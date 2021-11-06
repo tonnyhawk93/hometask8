@@ -26,6 +26,10 @@ responseId=$(curl --silent -s 'https://api.tracker.yandex.net/v2/issues/' \
 echo "ticketId=$responseId" >> $GITHUB_ENV
 
 if [[ ! -z $responseId ]]
-  then echo "OK!" 
-  else echo "Error!" 
+  then 
+    echo "В трекере создан релизный тикет с ID = $responseId" 
+    exit 0
+  else 
+    echo "Ошиба создания тикета в трекере" 
+    exit 1
   fi

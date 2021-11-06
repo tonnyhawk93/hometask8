@@ -1,15 +1,31 @@
 #! /usr/bin/env bash
-echo $ticketId
+echo 'Установка зависимостей...'
 npm i
+if [ $? -ne 0 ]
+then
+    result='Ошибка установки зависимостей'
+    echo $result
+    chmod +x ./.github/scripts/add.sh
+    ./.github/scripts/add.sh "$result" "$ticketId" "$OAuth" "$OrganizationId"
+    exit 1
+else
+    echo "Зависимости установлены"
+fi
+
+echo 'Сборка положения...'
 npm run build
 
 if [ $? -ne 0 ]
 then
-    result="ERROR app build!!"
+    result='Ошибка сборки приложения'
+    echo $result
+    chmod +x ./.github/scripts/add.sh
+    ./.github/scripts/add.sh "$result" "$ticketId" "$OAuth" "$OrganizationId"
     exit 1
 else
-    result="App build successfully"
+    result="Приложение собрано успешно"
+    chmod +x ./.github/scripts/add.sh
+    ./.github/scripts/add.sh "$result" "$ticketId" "$OAuth" "$OrganizationId"
+    exit 0
 fi
 
-chmod +x ./.github/scripts/add.sh
-./.github/scripts/add.sh "$result" "$ticketId" "$OAuth" "$OrganizationId"

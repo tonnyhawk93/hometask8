@@ -13,6 +13,10 @@ responseId=$(curl --silent -s "https://api.tracker.yandex.net/v2/issues/$Id/comm
 )
 
 if [[ ! -z $responseId ]]
-then echo "Comment created successfully!"
-else echo "Error!!! Comment not created."
+then 
+    echo "Добавлен коментарий в тикет"
+    exit 0
+else 
+    echo "Ошибка добавления коментария в тикет"
+    exit 0
 fi
