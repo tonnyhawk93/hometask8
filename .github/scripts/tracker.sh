@@ -44,7 +44,7 @@ if [[ -n "$responseId" ]]
           -H "Authorization: OAuth $OAuth" \
           -H "X-Org-ID: $OrganizationId" \
           -H "Content-Type: application/json" \
-          -d '{"text": "'"$Text"'"}' \
+          -d "$Data" \
           | jq -r '.id'
           )
         echo "В трекере обновлена тикет с ID = $responseId" 
