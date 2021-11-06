@@ -48,7 +48,7 @@ if [[ "$response" == "[]" ]]
     -H "X-Org-ID: $OrganizationId" \
     -H "Content-Type: application/json" \
     -d '{"filter": {"unique": "'"${Unique}"'"}}' \
-    | jq -r '.id')
+    | jq -r '[0].id')
     if [[ "$responseId" != "null" ]]
       then 
         echo "ticketId=$responseId" >> $GITHUB_ENV
