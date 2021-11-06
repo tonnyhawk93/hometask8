@@ -12,7 +12,7 @@ responseId=$(curl -s "https://api.tracker.yandex.net/v2/issues/$Id/comments" \
 | jq -r '.id'
 )
 
-if [[ -n "$responseId" ]]
+if [[ "$responseId"!="null" ]]
 then 
     echo "Добавлен коментарий в тикет"
     exit 0
