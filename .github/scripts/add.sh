@@ -5,10 +5,10 @@ OAuth=$3
 OrganizationId=$4
     
 responseId=$(curl -s "https://api.tracker.yandex.net/v2/issues/$Id/comments" \
- "Authorization: OAuth $OAuth" \
+-H "Authorization: OAuth $OAuth" \
 -H "X-Org-ID: $OrganizationId" \
 -H "Content-Type: application/json" \
--d'{"text": "'"$Text"'"}' \
+-d '{"text": "'"$Text"'"}' \
 | jq -r '.id'
 )
 
