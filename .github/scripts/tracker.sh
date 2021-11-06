@@ -57,7 +57,7 @@ if [[ "$response" == "[]" ]]
           -H "X-Org-ID: $OrganizationId" \
           -H "Content-Type: application/json" \
           -d "$Data" \
-          | jq -r '.[0].id'
+          | jq -r '.id'
           )
         if [[ "$responseId" != "null" ]]
           then 
