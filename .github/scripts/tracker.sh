@@ -24,7 +24,8 @@ response=$(curl -s --write-out "%{http_code}" "https://api.tracker.yandex.net/v2
     -d '{"filter": {"unique": "'"${Unique}"'"}}' 
     )
 
-if [[ $response -ne 201 ]]
+echo $response
+if [[ "$response" -ne 201 ]]
   then 
     responseId=$(curl -s 'https://api.tracker.yandex.net/v2/issues/' \
     -H "Authorization: OAuth $OAuth" \
@@ -46,7 +47,7 @@ if [[ $response -ne 201 ]]
     -H "Authorization: OAuth $OAuth" \
     -H "X-Org-ID: $OrganizationId" \
     -H "Content-Type: application/json" \
-    -d '{"filter": {"unique": "'"${Unique}"'"}}' /
+    -d '{"filter": {"unique": "'"${Unique}"'"}}' \
     | jq -r '.id')
     if [[ "$responseId" != "null" ]]
       then 
