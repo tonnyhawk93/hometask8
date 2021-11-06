@@ -50,12 +50,20 @@ if [[ "$response" == "[]" ]]
     if [[ "$responseId" != "null" ]]
       then 
         echo "ticketId=$responseId" >> $GITHUB_ENV
-        responseId=$(curl -s -X PATCH "https://api.tracker.yandex.net/v2/issues/$Id" \
+        responseId=$(curl -s "https://api.tracker.yandex.net/v2/issues/$Id" \
           -H "Authorization: OAuth $OAuth" \
           -H "X-Org-ID: $OrganizationId" \
           -H "Content-Type: application/json" \
-          -d "$Data")
-        echo "В трекере обновлен тикет с ID = $responseId"
+          -d "$Data" \
+          | jq -r '.id'
+          )
+        if [[ "$responseId" != "null" ]]
+          then 
+            echo "В трекере обновлен тикет с ID = $responseId"   
+          else 
+            echo "Ошибка создания тикета в трекере" 
+            exit 1
+        fi
       else 
         echo "Ошибка создания тикета в трекере" 
         exit 1
