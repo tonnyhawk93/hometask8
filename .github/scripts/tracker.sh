@@ -50,7 +50,7 @@ if [[ "$response" == "[]" ]]
     if [[ "$responseId" != "null" ]]
       then 
         echo "ticketId=$responseId" >> $GITHUB_ENV
-        $(curl -s -X PATCH "https://api.tracker.yandex.net/v2/issues/$Id" \
+        res=$(curl -s -X PATCH "https://api.tracker.yandex.net/v2/issues/$Id" \
           -H "Authorization: OAuth $OAuth" \
           -H "X-Org-ID: $OrganizationId" \
           -H "Content-Type: application/json" \
