@@ -17,7 +17,7 @@ Data='{
     }'
 
 
-response=$(curl -s --write-out "%{http_code}" "https://api.tracker.yandex.net/v2/issues/_search" \
+response=$(curl -s "https://api.tracker.yandex.net/v2/issues/_search" \
     -H "Authorization: OAuth $OAuth" \
     -H "X-Org-ID: $OrganizationId" \
     -H "Content-Type: application/json" \
@@ -63,11 +63,11 @@ if [[ "$response" -ne 201 ]]
           then 
             echo "В трекере обновлен тикет с ID = $responseId"   
           else 
-            echo "Ошиба создания тикета в трекере" 
+            echo "Ошибка создания тикета в трекере" 
             exit 1
         fi
       else 
-        echo "Ошиба создания тикета в трекере" 
+        echo "Ошибка создания тикета в трекере" 
         exit 1
     fi
 fi
