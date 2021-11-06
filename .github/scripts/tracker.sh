@@ -16,7 +16,6 @@ Data='{
         "unique": "'"${Unique}"'"
     }'
 
-
 response=$(curl -s "https://api.tracker.yandex.net/v2/issues/_search" \
     -H "Authorization: OAuth $OAuth" \
     -H "X-Org-ID: $OrganizationId" \
