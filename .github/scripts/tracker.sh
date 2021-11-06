@@ -24,7 +24,6 @@ response=$(curl -s "https://api.tracker.yandex.net/v2/issues/_search" \
     -d '{"filter": {"unique": "'"${Unique}"'"}}' 
     )
 
-echo $response
 if [[ "$response" == "[]" ]]
   then 
     responseId=$(curl -s 'https://api.tracker.yandex.net/v2/issues/' \
