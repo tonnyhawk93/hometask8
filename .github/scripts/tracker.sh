@@ -47,15 +47,17 @@ if [[ "$responseId" -ne "null" ]]
           -d "$Data" \
           | jq -r '.id'
           )
-        if [[ "$responseId" -ne "null" ]]
-          then 
-            echo "В трекере обновлен тикет с ID = $responseId" 
-          else 
-            echo "Ошиба создания тикета в трекере" 
-            exit 1
-        fi
+        echo "В трекере обновлен тикет с ID = $responseId" 
       else 
         echo "Ошиба создания тикета в трекере" 
         exit 1
     fi
 fi
+
+# if [[ "$responseId" -ne "null" ]]
+#           then 
+            
+#           else 
+#             echo "Ошиба создания тикета в трекере" 
+#             exit 1
+#         fi
